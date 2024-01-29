@@ -88,3 +88,28 @@ exports.getHomePage = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+
+// Display the form for creating a new blog post
+exports.getCreatePost = (req, res) => {
+  res.render('createPost');
+};
+
+// Handle the submission of the new blog post form
+exports.postCreatePost = async (req, res) => {
+  const { title, contents } = req.body;
+
+  try {
+    // Create a new blog post in the database
+    await Post.create({
+      title,
+      contents,
+      userId: req.session.user.id, // Assuming you store user information in the session
+    });
+
+    // Redirect to the dashboard or homepage after successful post creation
+    res.redirect('/dashboard'); // Change this to your desired post-creation destination
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};

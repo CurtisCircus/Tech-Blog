@@ -32,4 +32,10 @@ router.post('/comments/create', blogController.postComment);
 
 router.get('/dashboard', blogController.getDashboard);
 
+// Route to display the form for creating a new blog post
+router.get('/create', authController.requireAuth, blogController.getCreatePost);
+
+// Route to handle the submission of the new blog post form
+router.post('/create', authController.requireAuth, blogController.postCreatePost);
+
 module.exports = router;
