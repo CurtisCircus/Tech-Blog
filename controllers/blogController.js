@@ -30,6 +30,26 @@ exports.getBlogPostDetails = async (req, res) => {
   }
 };
 
+// Handle comment form submission
+exports.postComment = async (req, res) => {
+  const { content, postId } = req.body;
+
+  try {
+    // Create a new comment in the database
+    const newComment = await Comment.create({
+      content,
+      postId,
+      userId: req.session.user.id, // Assuming you store user information in the session
+    });
+
+    // Redirect back to the post details page after comment submission
+    res.redirect(`/posts/${postId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 // Display the homepage with a list of blog posts
 exports.getHomePage = async (req, res) => {
   try {
