@@ -1,0 +1,11 @@
+{{#if session.user}}
+  <!-- Links when the user is signed in -->
+  <a href="/">Home</a>
+  <a href="/dashboard">Dashboard</a>
+  <a href="/logout">Logout</a>
+{{else}}
+  <!-- Links when the user is not signed in -->
+  <a href="/">Home</a>
+  <a href="/signup">Sign Up</a>
+  <a href="/login">Login</a>
+{{/if}}

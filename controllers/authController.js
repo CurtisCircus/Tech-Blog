@@ -57,3 +57,51 @@ exports.postLogin = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+
+// Display the sign-up form
+exports.getSignup = (req, res) => {
+  res.render('signup');
+};
+
+// Handle sign-up form submission
+exports.postSignup = async (req, res) => {
+  // Validation logic (if needed)
+
+  try {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user in the database
+    const newUser = await User.create({
+      username,
+      password: hashedPassword,
+    });
+
+    // Automatically log in the user after successful sign-up
+    req.session.user = newUser;
+
+    // Redirect to the dashboard or homepage after successful sign-up
+    res.redirect('/dashboard'); // Change this to your desired post-signup destination
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Handle logout
+exports.logout = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  });
+};
+
+// Display the dashboard
+exports.getDashboard = (req, res) => {
+  // Check if the user is logged in
+  if (!req.session.user) {
+    return res.redirect('/login'); // Redirect to login if not logged in
+  }
+
+  // Render the dashboard template
+  res.render('dashboard');
+};
