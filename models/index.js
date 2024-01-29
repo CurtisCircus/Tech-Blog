@@ -3,12 +3,24 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const Sequelize = require('sequelize');
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const {
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+  DB_DIALECT, // Make sure to include the dialect in your environment variables
+} = process.env;
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
-  dialect: 'mysql', // Adjust the dialect based on your database
+  dialect: DB_DIALECT, // Specify the dialect here
+  port: DB_PORT,
+  define: {
+    timestamps: true,
+    underscored: true,
+    freezeTableName: true,
+  },
 });
 
 const models = {
