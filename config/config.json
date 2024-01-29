@@ -1,0 +1,44 @@
+{
+    "development": {
+      "username": "root",
+      "password": "CatCatCat",
+      "database": "TechBlog",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorsAliases": false,
+      "seederStorage": "sequelize",
+      "seederStorageTableName": "Seeds",
+      "define": {
+        "timestamps": true,
+        "underscored": true,
+        "freezeTableName": true
+      }
+    },
+    "test": {
+      "username": "root",
+      "password": "CatCat",
+      "database": "TestTechBlog",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorsAliases": false,
+      "seederStorage": "sequelize",
+      "seederStorageTableName": "Seeds",
+      "define": {
+        "timestamps": true,
+        "underscored": true,
+        "freezeTableName": true
+      }
+    },
+    "production": {
+      "use_env_variable": "DATABASE_URL",
+      "dialect": "mysql",
+      "operatorsAliases": false,
+      "seederStorage": "sequelize",
+      "seederStorageTableName": "Seeds",
+      "define": {
+        "timestamps": true,
+        "underscored": true,
+        "freezeTableName": true
+      }
+    }
+  }

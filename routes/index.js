@@ -2,20 +2,10 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const blogController = require('../controllers/blogController');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Homepage route
 router.get('/', blogController.getHomePage);
-
-// Dashboard route
-router.get('/dashboard', (req, res) => {
-  // Check if the user is logged in
-  if (!req.session.user) {
-    return res.redirect('/login'); // Redirect to login if not logged in
-  }
-
-  // Render the dashboard template
-  res.render('dashboard');
-});
 
 // Logout route
 router.get('/logout', authController.logout);
@@ -28,9 +18,8 @@ router.post('/signup', authController.postSignup);
 router.get('/login', authController.getLogin);
 router.post('/login', authController.postLogin);
 
+// Comment route
 router.post('/comments/create', blogController.postComment);
-
-router.get('/dashboard', blogController.getDashboard);
 
 // Route to display the form for creating a new blog post
 router.get('/create', authController.requireAuth, blogController.getCreatePost);

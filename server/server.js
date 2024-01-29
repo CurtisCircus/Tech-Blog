@@ -6,8 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Use your routes
-const indexRoutes = require('./routes/index');
-const authRoutes = require('./routes/auth');
+const indexRoutes = require('../routes/index');
+const authRoutes = require('../routes/auth');
 
 // Use a Sequelize session store for persistent sessions
 const sequelize = require('./path/to/your/sequelize-instance'); // Import your Sequelize instance

@@ -94,7 +94,10 @@ exports.getCreatePost = (req, res) => {
   res.render('createPost');
 };
 
+
+
 // Handle the submission of the new blog post form
+// Handle the form submission for creating a new blog post
 exports.postCreatePost = async (req, res) => {
   const { title, contents } = req.body;
 
@@ -108,6 +111,59 @@ exports.postCreatePost = async (req, res) => {
 
     // Redirect to the dashboard or homepage after successful post creation
     res.redirect('/dashboard'); // Change this to your desired post-creation destination
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Display the form for updating a specific blog post
+exports.getUpdatePost = async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    // Find the blog post by ID
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    // Render the 'updatePost.handlebars' template with the post details
+    res.render('updatePost', { post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Handle the form submission for updating a specific blog post
+exports.postUpdatePost = async (req, res) => {
+  const { title, contents } = req.body;
+  const postId = req.params.id;
+
+  try {
+    // Find the blog post by ID and update its details
+    await Post.update({ title, contents }, { where: { id: postId } });
+
+    // Redirect to the dashboard or homepage after successful post update
+    res.redirect('/dashboard'); // Change this to your desired post-update destination
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Handle the deletion of a specific blog post
+exports.deletePost = async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    // Find the blog post by ID and delete it
+    await Post.destroy({ where: { id: postId } });
+
+    // Redirect to the dashboard or homepage after successful post deletion
+    res.redirect('/dashboard'); // Change this to your desired post-deletion destination
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

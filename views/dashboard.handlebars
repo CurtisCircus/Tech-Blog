@@ -15,6 +15,9 @@
       {{#each userPosts}}
         <li>
           <a href="/posts/{{this.id}}">{{this.title}}</a> ({{this.createdAt}})
+          <!-- Add buttons or links for update and delete -->
+          <a href="/dashboard/update/{{this.id}}">Update</a>
+          <a href="/dashboard/delete/{{this.id}}">Delete</a>
         </li>
       {{/each}}
     </ul>
