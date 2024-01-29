@@ -1,0 +1,40 @@
+<!-- views/post.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{post.title}}</title>
+</head>
+<body>
+
+  <h1>{{post.title}}</h1>
+
+  <p>Created by {{post.User.username}} on {{post.createdAt}}</p>
+
+  <p>{{post.contents}}</p>
+
+  <h2>Comments</h2>
+  {{#if post.Comments.length}}
+    <ul>
+      {{#each post.Comments}}
+        <li>
+          <strong>{{this.User.username}}</strong> said on {{this.createdAt}}:<br>
+          {{this.content}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No comments yet.</p>
+  {{/if}}
+
+  <!-- Form for leaving a comment -->
+  <form action="/comments/create" method="post">
+    <textarea name="content" placeholder="Leave a comment"></textarea>
+    <input type="hidden" name="postId" value="{{post.id}}">
+    <button type="submit">Submit Comment</button>
+  </form>
+
+</body>
+</html>
