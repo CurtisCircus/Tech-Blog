@@ -1,0 +1,36 @@
+<!-- Create the sign-up form -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <!-- Include your CSS stylesheets if needed -->
+</head>
+
+<body>
+
+  <h1>Sign Up</h1>
+
+  <form action="/auth/signup" method="post">
+    <!-- Include any necessary CSRF protection token if needed -->
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <!-- Include links to navigate to other pages if needed -->
+  <a href="/">Back to Homepage</a>
+  <a href="/auth/login">Already have an account? Login here</a>
+
+  <!-- Include your JavaScript scripts if needed -->
+
+</body>
+
+</html>
