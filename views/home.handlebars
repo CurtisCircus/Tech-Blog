@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Include your layout and other HTML structure -->
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+</head>
 <body>
 
-  <h1>Homepage</h1>
+  <h1>Welcome to the Homepage</h1>
 
-  <!-- Display existing blog posts -->
-  {{#each posts}}
-    <div>
-      <h2>{{title}}</h2>
-      <p>{{content}}</p>
-      <!-- Add other post details here -->
-    </div>
-  {{/each}}
-
-  <!-- Navigation links -->
-  <a href="/">Homepage</a>
-  <a href="/dashboard">Dashboard</a>
-
-  <!-- Login option -->
-  <a href="/auth/login">Login</a>
-
-  <!-- Add more HTML as needed -->
+  {{#if posts.length}}
+    <h2>Recent Blog Posts</h2>
+    <ul>
+      {{#each posts}}
+        <li>
+          <strong>{{this.title}}</strong>
+          <br>
+          Created on {{this.createdAt}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No blog posts available.</p>
+  {{/if}}
 
 </body>
-
 </html>
