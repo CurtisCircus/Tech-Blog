@@ -6,10 +6,12 @@ const blogController = require('../controllers/blogController');
 // Homepage route
 router.get('/', blogController.getHomePage);
 
-// Sign-up route
+// Sign-up routes
 router.get('/signup', authController.getSignup);
+router.post('/signup', authController.postSignup);
 
-// Sign-in route
+// Login routes
 router.get('/login', authController.getLogin);
+router.post('/login', authController.postLogin);
 
 module.exports = router;

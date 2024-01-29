@@ -4,11 +4,21 @@ const User = require('../models/user');
 
 // Display the login form
 exports.getLogin = (req, res) => {
+  // Check if the user is already logged in
+  if (req.session.user) {
+    return res.redirect('/dashboard');
+  }
+
   res.render('login'); // Render the login.handlebars template
 };
 
 // Handle login form submission
 exports.postLogin = async (req, res) => {
+  // Check if the user is already logged in
+  if (req.session.user) {
+    return res.redirect('/dashboard');
+  }
+
   // Validate the login form data
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -46,37 +56,4 @@ exports.postLogin = async (req, res) => {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
-};
-
-// Display the sign-up form
-exports.getSignup = (req, res) => {
-  res.render('signup');
-};
-
-// Handle sign-up form submission
-exports.postSignup = async (req, res) => {
-  // Validation logic (if needed)
-
-  try {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await User.create({
-      username,
-      password: hashedPassword,
-    });
-
-    // Redirect to the homepage or dashboard after successful sign-up
-    res.redirect('/');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-};
-
-// Handle logout
-exports.logout = (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
-  });
 };
