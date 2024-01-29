@@ -50,7 +50,31 @@ exports.postComment = async (req, res) => {
   }
 };
 
-// Display the homepage with a list of blog posts
+// Display the dashboard with user's blog posts
+exports.getDashboard = async (req, res) => {
+  try {
+    // Check if the user is logged in
+    if (!req.session.user) {
+      return res.redirect('/login'); // Redirect to login if not logged in
+    }
+
+    // Fetch the user's blog posts
+    const userId = req.session.user.id;
+    const userPosts = await Post.findAll({
+      where: { userId }, // Assuming your Post model has a userId column
+      attributes: ['id', 'title', 'createdAt'], // Include post details
+      order: [['createdAt', 'DESC']], // Order by creation date in descending order
+    });
+
+    // Render the 'dashboard.handlebars' template with the user's posts
+    res.render('dashboard', { userPosts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Display the homepage with a list of all blog posts
 exports.getHomePage = async (req, res) => {
   try {
     const posts = await Post.findAll({

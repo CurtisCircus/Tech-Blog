@@ -1,3 +1,4 @@
+<!-- Create the login form -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,26 @@
 
   <h1>Login</h1>
 
-  <!-- Your login form here -->
+  {{#if errorMessage}}
+    <p style="color: red;">{{errorMessage}}</p>
+  {{/if}}
+
+  <form action="/auth/login" method="post">
+    <!-- Include any necessary CSRF protection token if needed -->
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Include links to navigate to other pages if needed -->
+  <a href="/">Back to Homepage</a>
+
+  <!-- Include your JavaScript scripts if needed -->
 
 </body>
 

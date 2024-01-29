@@ -30,4 +30,6 @@ router.post('/login', authController.postLogin);
 
 router.post('/comments/create', blogController.postComment);
 
+router.get('/dashboard', blogController.getDashboard);
+
 module.exports = router;

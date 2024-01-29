@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+
+  <h1>Welcome to Your Dashboard</h1>
+
+  {{#if userPosts.length}}
+    <h2>Your Blog Posts:</h2>
+    <ul>
+      {{#each userPosts}}
+        <li>
+          <a href="/posts/{{this.id}}">{{this.title}}</a> ({{this.createdAt}})
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No blog posts yet. <a href="/posts/new">Create a new post</a></p>
+  {{/if}}
+
+  <a href="/posts/new">Add a New Blog Post</a>
+
+</body>
+</html>
